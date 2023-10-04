@@ -27,3 +27,37 @@ dotnet pack src/Play.Catalog.Contracts --configuration Release -p:PackageVersion
 
 dotnet nuget push ../packages/Play.Catalog.Contracts.$version.nupkg --api-key $gh_pat --source "github"
 ```
+
+## Build the docker image
+
+MacOS
+
+```shell
+export GH_OWNER='iga1dotnetmicroservices'
+export GH_PAT='[PAT HERE]'
+docker build --secret id=GH_OWNER --secret id=GH_PAT -t play.catalog:$version .
+```
+
+Windows Shell
+
+```powershell
+$env:GH_OWNER='iga1dotnetmicroservices'
+$env:GH_PAT='[PAT HERE]'
+docker build --secret id=GH_OWNER --secret id=GH_PAT -t play.catalog:$version .
+```
+
+## Run the docker image
+
+MacOS
+
+```shell 
+authority='identity'
+docker run -it --rm -p 5000:5000 --name catalog -e MongoDbSettings__Host=mongo -e RabbitMQSettings__Host=rabbitmq -e ServiceSettings__Authority=$authority --network playinfra_default play.catalog:$version
+```
+
+Windows Shell
+
+```powershell
+$authority='identity'
+docker run -it --rm -p 5000:5000 --name catalog -e MongoDbSettings__Host=mongo -e RabbitMQSettings__Host=rabbitmq -e ServiceSettings__Authority=$authority --network playinfra_default play.catalog:$version
+```
