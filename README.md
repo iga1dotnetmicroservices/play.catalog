@@ -51,13 +51,13 @@ docker build --secret id=GH_OWNER --secret id=GH_PAT -t play.catalog:$version .
 MacOS
 
 ```shell 
-authority='identity'
+authority='[AUTHORITY]'
 docker run -it --rm -p 5000:5000 --name catalog -e MongoDbSettings__Host=mongo -e RabbitMQSettings__Host=rabbitmq -e ServiceSettings__Authority=$authority --network playinfra_default play.catalog:$version
 ```
 
 Windows Shell
 
 ```powershell
-$authority='identity'
+$authority='[AUTHORITY]'
 docker run -it --rm -p 5000:5000 --name catalog -e MongoDbSettings__Host=mongo -e RabbitMQSettings__Host=rabbitmq -e ServiceSettings__Authority=$authority --network playinfra_default play.catalog:$version
 ```
