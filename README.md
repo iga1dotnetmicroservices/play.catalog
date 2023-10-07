@@ -7,7 +7,7 @@ Play Economy Catalog microservice
 MacOS
 
 ```shell
-version='1.0.2'
+version='1.0.3'
 owner='iga1dotnetmicroservices'
 gh_pat='[PAT HERE]'
 
@@ -19,7 +19,7 @@ dotnet nuget push ../packages/Play.Catalog.Contracts.$version.nupkg --api-key $g
 Windows Powershell
 
 ```powershell
-$version='1.0.2'
+$version='1.0.3'
 $owner='iga1dotnetmicroservices'
 $gh_pat='[PAT HERE]'
 
@@ -52,12 +52,18 @@ MacOS
 
 ```shell 
 authority='[AUTHORITY]'
-docker run -it --rm -p 5000:5000 --name catalog -e MongoDbSettings__Host=mongo -e RabbitMQSettings__Host=rabbitmq -e ServiceSettings__Authority=$authority --network playinfra_default play.catalog:$version
+cosmosDbConnString='[CONN STRING HERE]'
+'serviceBusConnString=[CONN STRING HERE]'
+
+docker run -it --rm -p 5000:5000 --name catalog -e MongoDbSettings__ConnectionString=$cosmosDbConnString -e ServiceBusSettings__ConnectionString=$serviceBusConnString -e ServiceSettings__Authority=$authority -e ServiceSettings__MessageBroker="SERVICEBUS" play.catalog:$version
 ```
 
 Windows Shell
 
 ```powershell
 $authority='[AUTHORITY]'
-docker run -it --rm -p 5000:5000 --name catalog -e MongoDbSettings__Host=mongo -e RabbitMQSettings__Host=rabbitmq -e ServiceSettings__Authority=$authority --network playinfra_default play.catalog:$version
+$cosmosDbConnString='[CONN STRING HERE]'
+$serviceBusConnString='[CONN STRING HERE]'
+
+docker run -it --rm -p 5000:5000 --name catalog -e MongoDbSettings__ConnectionString=$cosmosDbConnString -e ServiceBusSettings__ConnectionString=$serviceBusConnString -e ServiceSettings__Authority=$authority -e ServiceSettings__MessageBroker="SERVICEBUS" play.catalog:$version
 ```
