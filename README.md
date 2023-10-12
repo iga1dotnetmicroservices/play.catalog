@@ -33,6 +33,8 @@ dotnet nuget push ../packages/Play.Catalog.Contracts.$version.nupkg --api-key $g
 MacOS
 
 ```shell
+appname='iga1playeconomy'
+
 export GH_OWNER='iga1dotnetmicroservices'
 export GH_PAT='[PAT HERE]'
 docker build --secret id=GH_OWNER --secret id=GH_PAT -t "$appname.azurecr.io/play.catalog:$version" .
@@ -41,6 +43,8 @@ docker build --secret id=GH_OWNER --secret id=GH_PAT -t "$appname.azurecr.io/pla
 Windows Shell
 
 ```powershell
+$appname='iga1playeconomy'
+
 $env:GH_OWNER='iga1dotnetmicroservices'
 $env:GH_PAT='[PAT HERE]'
 docker build --secret id=GH_OWNER --secret id=GH_PAT -t "$appname.azurecr.io/play.catalog:$version" .
@@ -58,7 +62,7 @@ cosmosDbConnString='[CONN STRING HERE]'
 docker run -it --rm -p 5000:5000 --name catalog -e MongoDbSettings__ConnectionString=$cosmosDbConnString -e ServiceBusSettings__ConnectionString=$serviceBusConnString -e ServiceSettings__Authority=$authority -e ServiceSettings__MessageBroker="SERVICEBUS" play.catalog:$version
 ```
 
-Windows Shell
+Windows
 
 ```powershell
 $authority='[AUTHORITY]'
@@ -68,21 +72,20 @@ $serviceBusConnString='[CONN STRING HERE]'
 docker run -it --rm -p 5000:5000 --name catalog -e MongoDbSettings__ConnectionString=$cosmosDbConnString -e ServiceBusSettings__ConnectionString=$serviceBusConnString -e ServiceSettings__Authority=$authority -e ServiceSettings__MessageBroker="SERVICEBUS" play.catalog:$version
 ```
 
-## Publishing the Docker image
-
+## Publishing the docker image
 
 MacOS
 
 ```powershell
-appname='playeconomya'
+appname='iga1playeconomy'
 az acr login --name $appname
 docker push "$appname.azurecr.io/play.catalog:$version"
 ```
 
-Windows Shell
+Windows
 
 ```powershell
-$appname='playeconomya'
+$appname='iga1playeconomy'
 az acr login --name $appname
 docker push "$appname.azurecr.io/play.catalog:$version"
 ```
