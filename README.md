@@ -57,7 +57,7 @@ MacOS
 ```shell 
 authority='[AUTHORITY]'
 cosmosDbConnString='[CONN STRING HERE]'
-'serviceBusConnString=[CONN STRING HERE]'
+serviceBusConnString='[CONN STRING HERE]'
 
 docker run -it --rm -p 5000:5000 --name catalog -e MongoDbSettings__ConnectionString=$cosmosDbConnString -e ServiceBusSettings__ConnectionString=$serviceBusConnString -e ServiceSettings__Authority=$authority -e ServiceSettings__MessageBroker="SERVICEBUS" play.catalog:$version
 ```

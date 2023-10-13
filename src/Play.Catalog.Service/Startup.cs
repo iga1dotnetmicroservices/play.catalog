@@ -19,6 +19,7 @@ using Play.Common.MassTransit;
 using Play.Common.MongoDB;
 using Play.Common.Settings;
 using Play.Common.Identity;
+using Play.Common.HealthChecks;
 
 namespace Play.Catalog.Service
 {
@@ -69,6 +70,9 @@ namespace Play.Catalog.Service
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Play.Catalog.Service", Version = "v1" });
             });
+
+            services.AddHealthChecks()
+                    .AddMongo();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -99,6 +103,7 @@ namespace Play.Catalog.Service
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                endpoints.MapPlayEconomyHealthChecks();
             });
         }
     }
