@@ -89,3 +89,57 @@ $appname='iga1playeconomy'
 az acr login --name $appname
 docker push "$appname.azurecr.io/play.catalog:$version"
 ```
+
+## Create the Kubernetes namespace
+
+MacOS
+
+```shell
+namespace='catalog'
+kubectl create namespace $namespace
+```
+
+Windows
+
+```powershell
+$namespace='catalog'
+kubectl create namespace $namespace
+```
+
+## Creating the pod managed identity
+
+Mac OS
+
+```shell
+az identity create --resource-group $appname --name $namespace
+
+IDENTITY_RESOURCE_ID=$(az identity show -g $appname -n $namespace --query id -otsv)
+
+az aks pod-identity add --resource-group $appname --cluster-name $appname --namespace $namespace --identity-resource-id $IDENTITY_RESOURCE_ID
+```
+
+Windows
+
+```powershell
+az identity create --resource-group $appname --name $namespace
+
+$IDENTITY_RESOURCE_ID=az identity show -g $appname -n $namespace --query id -otsv
+
+az aks pod-identity add --resource-group $appname --cluster-name $appname --namespace $namespace --identity-resource-id $IDENTITY_RESOURCE_ID
+```
+
+## Granting access to Key Vault secrets
+
+MacOS
+
+```shell
+IDENTITY_CLIENT_ID=$(az identity show -g $appname -n $namespace --query clientId -otsv)
+az keyvault set-policy -n $appname --secret-permissions get list --spn $IDENTITY_CLIENT_ID
+```
+
+MacOS
+
+```powershell
+$IDENTITY_CLIENT_ID=az identity show -g $appname -n $namespace --query clientId -otsv
+az keyvault set-policy -n $appname --secret-permissions get list --spn $IDENTITY_CLIENT_ID
+```
