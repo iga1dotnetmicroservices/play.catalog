@@ -20,6 +20,7 @@ using Play.Common.MongoDB;
 using Play.Common.Settings;
 using Play.Common.Identity;
 using Play.Common.HealthChecks;
+using Play.Common.Logging;
 
 namespace Play.Catalog.Service
 {
@@ -73,6 +74,8 @@ namespace Play.Catalog.Service
 
             services.AddHealthChecks()
                     .AddMongo();
+
+            services.AddSeqLogging(Configuration);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

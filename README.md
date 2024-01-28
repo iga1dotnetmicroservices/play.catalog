@@ -159,7 +159,7 @@ helmPassword=$(az acr login --name $appname --expose-token --output tsv --query 
 export HELM_EXPERIMENTAL_OCI=1
 helm registry login "$appname.azurecr.io" --username $helmUser --password $helmPassword
 
-chartVersion="0.1.0"
+chartVersion="0.1.1"
 helm upgrade catalog-service oci://$appname.azurecr.io/helm/microservice --version $chartVersion -f ./helm/values.yaml -n $namespace --install
 ```
 
