@@ -144,12 +144,6 @@ $IDENTITY_CLIENT_ID=az identity show -g $appname -n $namespace --query clientId 
 az keyvault set-policy -n $appname --secret-permissions list get --spn $IDENTITY_CLIENT_ID
 ```
 
-## Creating the Kubernetes resources
-
-```powershell
-kubectl apply -f ./kubernetes/catalog.yaml -n $namespace
-```
-
 ## Install the Helm chart
 
 ```powershell
